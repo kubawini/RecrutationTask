@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>
