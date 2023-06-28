@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewLayer"
         xmlns:views="clr-namespace:ViewLayer.Views"
+        xmlns:vms="clr-namespace:ViewModelLayer.ViewModels;assembly=ViewModelLayer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:EditUserView/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:LoadUsersViewModel}">
+                <views:LoadUsersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ListUsersViewModel}">
+                <views:ListUsersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:EditUserViewModel}">
+                <views:EditUserView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

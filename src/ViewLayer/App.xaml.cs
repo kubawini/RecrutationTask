@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ViewModelLayer.Stores;
+using ViewModelLayer.ViewModels;
 
 namespace ViewLayer
 {
@@ -13,5 +15,22 @@ namespace ViewLayer
     /// </summary>
     public partial class App : Application
     {
+        private readonly NavigationStore _navigationStore;
+
+        public App()
+        {
+            _navigationStore = new NavigationStore();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _navigationStore.CurrentViewModel = new LoadUsersViewModel(_navigationStore);
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(_navigationStore)
+            };
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
     }
 }

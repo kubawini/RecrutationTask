@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+    <ProjectReference Include="..\ViewModelLayer2\ViewModelLayer.csproj" />
   </ItemGroup>
 
 </Project>

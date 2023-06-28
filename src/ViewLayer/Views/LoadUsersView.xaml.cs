@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModelLayer.ViewModels;
 
 namespace ViewLayer.Views
 {
     /// <summary>
-    /// Logika interakcji dla klasy LoadView.xaml
+    /// Logika interakcji dla klasy LoadUsersView.xaml
     /// </summary>
-    public partial class LoadView : UserControl
+    public partial class LoadUsersView : UserControl
     {
-        public LoadView()
+        public LoadUsersView()
         {
             InitializeComponent();
         }
