@@ -11,8 +11,10 @@
             <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Width="80" Height="40" HorizontalAlignment="Left" Content="Edit"/>
-        <ListView Grid.Row="1" ItemsSource="{Binding Users}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Button Grid.Row="0" Width="80" Height="40" HorizontalAlignment="Left" Content="Edit"
+                Command="{Binding OpenEditUser}"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding Users}" SelectedItem="{Binding CurrentUser}" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
 

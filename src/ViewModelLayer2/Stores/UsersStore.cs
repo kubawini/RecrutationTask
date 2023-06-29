@@ -16,7 +16,13 @@ namespace ViewModelLayer.Stores
             get { return _users; }
             set { _users = value; }
         }
-            
+
+        private UserModel _currentUser;
+        public UserModel CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
+        }
 
         public UsersStore(ObservableCollection<UserModel> users)
         {

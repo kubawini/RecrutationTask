@@ -27,16 +27,21 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                     Text="{Binding CurrentUser.name}"/>
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Surname"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                     Text="{Binding CurrentUser.surename}"/>
 
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Email"/>
-            <TextBox Grid.Row="5" Grid.Column="0"/>
+            <TextBox Grid.Row="5" Grid.Column="0"
+                     Text="{Binding CurrentUser.email}"/>
 
             <TextBlock Grid.Row="4" Grid.Column="1" Text="Phone number"/>
-            <TextBox Grid.Row="5" Grid.Column="1"/>
+            <TextBox Grid.Row="5" Grid.Column="1"
+                     Text="{Binding CurrentUser.phone}"/>
+
         </Grid>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
