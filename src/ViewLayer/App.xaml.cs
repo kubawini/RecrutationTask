@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModelLayer.DbContexts;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,49 +25,57 @@ namespace ViewLayer
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;
-        private readonly string _connectionString = "Data Source=users.db"; // TODO delete it from code
 
         private readonly IHost _host;
 
         public App()
         {
             //_navigationStore = new NavigationStore();
-            _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
-            {
-                services.AddAutoMapper(typeof(MappingProfile));
-                services.AddSingleton<IUsersDbContextFactory>(s => new UsersDbContextFactory(_connectionString));
-                services.AddSingleton<IUsersRepository, UsersRepository>();
-                services.AddSingleton<NavigationStore>();
-                services.AddSingleton<UsersStore>();
-
-                //services.AddSingleton<NavigationService<LoadUsersViewModel>>();
-                //services.AddSingleton<NavigationService<ListUsersViewModel>>();
-                //services.AddSingleton<NavigationService<EditUserViewModel>>();
-
-                services.AddTransient<LoadUsersViewModel>(s => new LoadUsersViewModel(
-                    s.GetRequiredService<NavigationStore>(), 
-                    s.GetRequiredService<UsersStore>(),
-                    s.GetRequiredService<IUsersRepository>()));
-                services.AddTransient<ListUsersViewModel>(s => new ListUsersViewModel(
-                    s.GetRequiredService<NavigationStore>(),
-                    s.GetRequiredService<UsersStore>(),
-                    s.GetRequiredService<IUsersRepository>()));
-                services.AddTransient<EditUserViewModel>(s => new EditUserViewModel(
-                    s.GetRequiredService<NavigationStore>(),
-                    s.GetRequiredService<UsersStore>(),
-                    s.GetRequiredService<IUsersRepository>()));
-
-                //services.AddTransient(s => 
-                //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
-                //services.AddSingleton<Func<LoadUsersViewModel>>(s => () => s.GetRequiredService<LoadUsersViewModel>());
-                //services.AddSingleton<Func<ListUsersViewModel>>(s => () => s.GetRequiredService<ListUsersViewModel>());
-
-                services.AddSingleton<MainViewModel>();
-                services.AddSingleton(s => new MainWindow()
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    DataContext = s.GetRequiredService<MainViewModel>()
-                });
-            }).Build();
+                    var settingPath = Path.GetFullPath(Path.Combine(@"../../../../ModelLayer/appsettings.json"));
+                    config.AddJsonFile(settingPath);
+                })
+                .ConfigureServices((hostContext, services) =>
+                {
+                string connectionString = hostContext.Configuration.GetConnectionString("Default");
+
+                services.AddAutoMapper(typeof(MappingProfile));
+                    services.AddSingleton<IUsersDbContextFactory>(s => new UsersDbContextFactory(connectionString));
+                    services.AddSingleton<IUsersRepository, UsersRepository>();
+                    services.AddSingleton<NavigationStore>();
+                    services.AddSingleton<UsersStore>();
+
+                    //services.AddSingleton<NavigationService<LoadUsersViewModel>>();
+                    //services.AddSingleton<NavigationService<ListUsersViewModel>>();
+                    //services.AddSingleton<NavigationService<EditUserViewModel>>();
+
+                    services.AddTransient<LoadUsersViewModel>(s => new LoadUsersViewModel(
+                        s.GetRequiredService<NavigationStore>(), 
+                        s.GetRequiredService<UsersStore>(),
+                        s.GetRequiredService<IUsersRepository>()));
+                    services.AddTransient<ListUsersViewModel>(s => new ListUsersViewModel(
+                        s.GetRequiredService<NavigationStore>(),
+                        s.GetRequiredService<UsersStore>(),
+                        s.GetRequiredService<IUsersRepository>()));
+                    services.AddTransient<EditUserViewModel>(s => new EditUserViewModel(
+                        s.GetRequiredService<NavigationStore>(),
+                        s.GetRequiredService<UsersStore>(),
+                        s.GetRequiredService<IUsersRepository>()));
+
+                    //services.AddTransient(s => 
+                    //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
+                    //services.AddSingleton<Func<LoadUsersViewModel>>(s => () => s.GetRequiredService<LoadUsersViewModel>());
+                    //services.AddSingleton<Func<ListUsersViewModel>>(s => () => s.GetRequiredService<ListUsersViewModel>());
+
+                    services.AddSingleton<MainViewModel>();
+                    services.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainViewModel>()
+                    });
+                })
+                .Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
