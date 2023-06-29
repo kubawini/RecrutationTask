@@ -15,9 +15,6 @@ namespace ViewModelLayer.ViewModels
 {
     public class ListUsersViewModel : ViewModelBase
     {
-        //private readonly ObservableCollection<UserModel> _users;
-        //public IEnumerable<UserModel> Users => _users;
-
         private UsersStore _usersStore;
         public IEnumerable<UserModel> Users
         {

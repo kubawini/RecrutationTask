@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace ViewLayer.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy ListUsersView.xaml
-    /// </summary>
     public partial class ListUsersView : UserControl
     {
         public ListUsersView()

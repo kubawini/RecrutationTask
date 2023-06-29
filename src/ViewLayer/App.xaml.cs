@@ -19,9 +19,6 @@ using ViewModelLayer.ViewModels;
 
 namespace ViewLayer
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;
@@ -30,7 +27,6 @@ namespace ViewLayer
 
         public App()
         {
-            //_navigationStore = new NavigationStore();
             _host = Host.CreateDefaultBuilder()
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
@@ -59,11 +55,6 @@ namespace ViewLayer
                     services.AddTransient<ListUsersViewModel>();
                     services.AddTransient<EditUserViewModel>();
 
-                    //services.AddTransient(s => 
-                    //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
-                    //services.AddSingleton<Func<LoadUsersViewModel>>(s => () => s.GetRequiredService<LoadUsersViewModel>());
-                    //services.AddSingleton<Func<ListUsersViewModel>>(s => () => s.GetRequiredService<ListUsersViewModel>());
-
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton(s => new MainWindow()
                     {
@@ -77,29 +68,18 @@ namespace ViewLayer
         {
             _host.Start();
 
-            //DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(_connectionString).Options;
-            //UsersDbContext usersDbContext = new UsersDbContext(options);
-            //usersDbContext.Database.Migrate();
             IUsersDbContextFactory usersDbContextFactory = _host.Services.GetRequiredService<IUsersDbContextFactory>();
             using(UsersDbContext dbContext = usersDbContextFactory.CreateDbContext())
             {
                 dbContext.Database.Migrate();
             }
 
-            //NavigationStore navigationStore = _host.Services.GetRequiredService<NavigationStore>();
-            //UsersStore usersStore = _host.Services.GetRequiredService<UsersStore>();
-            //navigationStore.CurrentViewModel = _host.Services.GetRequiredService<LoadUsersViewModel>();
             NavigationService<LoadUsersViewModel> navigationService = _host.Services.GetRequiredService<NavigationService<LoadUsersViewModel>>();
             navigationService.Navigate();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
-
-            //_navigationStore.CurrentViewModel = new LoadUsersViewModel(_navigationStore);
-            //MainWindow = new MainWindow()
-            //{
-            //    DataContext = new MainViewModel(_navigationStore)
-            //};
             MainWindow.Show();
+
             base.OnStartup(e);
         }
 

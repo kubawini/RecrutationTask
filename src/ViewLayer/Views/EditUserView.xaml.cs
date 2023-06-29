@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace ViewLayer.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy EditUserView.xaml
-    /// </summary>
+
     public partial class EditUserView : UserControl
     {
         public EditUserView()

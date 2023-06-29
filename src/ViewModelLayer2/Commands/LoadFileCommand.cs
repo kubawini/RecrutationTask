@@ -35,7 +35,6 @@ namespace ViewModelLayer.Commands
             if (string.IsNullOrEmpty(_viewModel.FilePath)) return; //TODO Check what happens when not clicking ok button
             _viewModel.UsersStore.Users = ReadUsers(_viewModel.FilePath);
             _usersRepository.SaveAllUsers(_viewModel.UsersStore.Users);
-            //_navigationStore.CurrentViewModel = new ListUsersViewModel(_navigationStore, _viewModel.UsersStore, _usersRepository);
             _navigationService.Navigate();
         }
 

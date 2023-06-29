@@ -28,7 +28,6 @@ namespace ViewModelLayer.ViewModels
             }
         }
 
-        //public IEnumerable<UserModel> Users;
         public UsersStore UsersStore;
         public ICommand LoadFileCommand { get; }
 
