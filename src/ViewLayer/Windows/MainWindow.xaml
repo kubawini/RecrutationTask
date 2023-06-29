@@ -1,0 +1,35 @@
+﻿<Window x:Class="ViewLayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewLayer"
+        xmlns:views="clr-namespace:ViewLayer.Views"
+        xmlns:vms="clr-namespace:ViewModelLayer.ViewModels;assembly=ViewModelLayer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:LoadUsersViewModel}">
+                <views:LoadUsersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ListUsersViewModel}">
+                <views:ListUsersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:EditUserViewModel}">
+                <views:EditUserView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Offset="0.5" Color="#151152" />
+                    <GradientStop Offset="1" Color="#4528d4" />
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+    </Grid>
+</Window>

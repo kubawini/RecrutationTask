@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="ViewLayer.Views.ListUsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ViewLayer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="20,0,20,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Left" Content="Edit" 
+                Foreground="#151152" Margin="0,5" IsEnabled="{Binding IsUserSelected}"
+                Command="{Binding OpenEditUser}" FontWeight="Medium" Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                     Value="True">
+                            <Setter Property="Background" Value="#e0e0e0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Users}" SelectedItem="{Binding CurrentUser}" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding id}" />
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding name}" />
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding surename}" />
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}" />
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding phone}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+</UserControl>
