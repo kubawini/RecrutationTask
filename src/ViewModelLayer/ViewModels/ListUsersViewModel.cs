@@ -25,12 +25,19 @@ namespace ViewModelLayer.ViewModels
         public UserModel CurrentUser
         {
             get { return _usersStore.CurrentUser; }
-            set { _usersStore.CurrentUser = value; }
+            set { _usersStore.CurrentUser = value; IsUserSelected = value is null ? false : true; }
+        }
+
+        private bool _isUserSelected;
+        public bool IsUserSelected
+        {
+            get { return _isUserSelected;}
+            set { _isUserSelected = value; OnPropertyChanged("IsUserSelected");  }
         }
 
         public ICommand OpenEditUser { get; }
 
-        public ListUsersViewModel(NavigationService<EditUserViewModel> navigationService, UsersStore usersStore, IUsersRepository usersRepository) // TODO Delete repository from constructor
+        public ListUsersViewModel(NavigationService<EditUserViewModel> navigationService, UsersStore usersStore)
         {
             _usersStore = usersStore;
             OpenEditUser = new NavigateCommand<EditUserViewModel>(navigationService); // TODO What if CurrentUser is empty - simple converter

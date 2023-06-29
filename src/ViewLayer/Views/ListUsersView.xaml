@@ -10,10 +10,10 @@
     <Grid Margin="20,0,20,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button HorizontalAlignment="Left" Content="Edit" 
-                Foreground="#151152" Margin="0,5"
+                Foreground="#151152" Margin="0,5" IsEnabled="{Binding IsUserSelected}"
                 Command="{Binding OpenEditUser}" FontWeight="Medium" Cursor="Hand">
             <Button.Style>
                 <Style TargetType="Button">
