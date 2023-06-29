@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F9109E54-D1A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelLayer", "src\ModelLayer\ModelLayer.csproj", "{5F2CD1E9-18AC-4F01-9C3F-8979D087B4F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelLayer", "src\ViewModelLayer2\ViewModelLayer.csproj", "{10F2F41E-E291-43F5-908F-54ABA179119E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelLayer", "src\ViewModelLayer\ViewModelLayer.csproj", "{10F2F41E-E291-43F5-908F-54ABA179119E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
