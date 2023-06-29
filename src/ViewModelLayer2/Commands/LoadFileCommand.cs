@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.Win32;
 using ModelLayer.Models;
+using ViewModelLayer.Services;
 using ViewModelLayer.Stores;
 using ViewModelLayer.ViewModels;
 
@@ -28,8 +30,9 @@ namespace ViewModelLayer.Commands
         {
             _viewModel.FilePath = OpenFileDialog();
             if (string.IsNullOrEmpty(_viewModel.FilePath)) return; //TODO Check what happens when not clicking ok button
-            _viewModel.Users = ReadUsers(_viewModel.FilePath);
-            _navigationStore.CurrentViewModel = new ListUsersViewModel(_viewModel.Users);
+            _viewModel.UsersStore.Users = ReadUsers(_viewModel.FilePath);
+            _navigationStore.CurrentViewModel = new ListUsersViewModel(_viewModel.UsersStore.Users);
+            //_navigationStore.Navigate();
         }
 
         public string OpenFileDialog()

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using ViewModelLayer.Commands;
+using ViewModelLayer.Services;
 using ViewModelLayer.Stores;
 
 namespace ViewModelLayer.ViewModels
@@ -25,12 +27,14 @@ namespace ViewModelLayer.ViewModels
             }
         }
 
-        public IEnumerable<UserModel> Users;
+        //public IEnumerable<UserModel> Users;
+        public UsersStore UsersStore;
         public ICommand LoadFileCommand { get; }
 
-        public LoadUsersViewModel(NavigationStore navigationStore)
+        public LoadUsersViewModel(NavigationStore navigationStore, UsersStore usersStore)
         {
             LoadFileCommand = new LoadFileCommand(this, navigationStore);
+            UsersStore = usersStore;
         }
     }
 }
