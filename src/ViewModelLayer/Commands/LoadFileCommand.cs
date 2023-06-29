@@ -107,7 +107,7 @@ namespace ViewModelLayer.Commands
                 int usersBefore = _usersRepository.GetUsersCount();
                 _usersRepository.SaveAllUsers(_viewModel.UsersStore.Users);
                 int usersAfter = _usersRepository.GetUsersCount();
-                if (usersBefore >= usersAfter) throw new Exception("Could not save users into database");
+                if (usersBefore + _viewModel.UsersStore.Users.Count() > usersAfter) throw new Exception("Could not save users into database");
             }
             catch (Exception ex)
             {
