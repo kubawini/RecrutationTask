@@ -111,7 +111,7 @@ namespace ViewModelLayer.Commands
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Could not save users into database - check if users you want to add already exist", 
+                MessageBox.Show("Could not save users into database - check if users you want to add do not overlap", 
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _errorOccured = true;
             }
