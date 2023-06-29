@@ -45,8 +45,8 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Width="80" Height="40" Content="Cancel"/>
-            <Button Width="80" Height="40" Content="Save"/>
+            <Button Width="80" Height="40" Content="Cancel" Command="{Binding Cancel}"/>
+            <Button Width="80" Height="40" Content="Save" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </UserControl>

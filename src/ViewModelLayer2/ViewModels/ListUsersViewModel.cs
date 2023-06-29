@@ -1,4 +1,5 @@
 ﻿using ModelLayer.Models;
+using ModelLayer.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,10 +32,10 @@ namespace ViewModelLayer.ViewModels
 
         public ICommand OpenEditUser { get; }
 
-        public ListUsersViewModel(NavigationStore navigationStore, UsersStore usersStore)
+        public ListUsersViewModel(NavigationStore navigationStore, UsersStore usersStore, IUsersRepository usersRepository) // TODO Delete repository from constructor
         {
             _usersStore = usersStore;
-            OpenEditUser = new NavigateCommand(navigationStore, () => new EditUserViewModel(usersStore));
+            OpenEditUser = new NavigateCommand(navigationStore, () => new EditUserViewModel(navigationStore, usersStore, usersRepository)); // TODO What if CurrentUser is empty - simple converter
         }
     }
 }

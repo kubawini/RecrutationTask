@@ -32,5 +32,24 @@ namespace ModelLayer.Repositories
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task UpdateUser(UserModel user)
+        {
+            using (UsersDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                int userId = user.id;
+                var userToBeUpdated = context.Users.Where(u => u.Id == userId).Single();
+                UpdateUserData(userToBeUpdated, user);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public void UpdateUserData(UserDTO userToBeUpdated, UserModel newUser)
+        {
+            userToBeUpdated.Name = newUser.name;
+            userToBeUpdated.Surname = newUser.surename;
+            userToBeUpdated.Email = newUser.email;
+            userToBeUpdated.Phone = newUser.phone;
+        }
     }
 }

@@ -48,9 +48,12 @@ namespace ViewLayer
                     s.GetRequiredService<IUsersRepository>()));
                 services.AddTransient<ListUsersViewModel>(s => new ListUsersViewModel(
                     s.GetRequiredService<NavigationStore>(),
-                    s.GetRequiredService<UsersStore>()));
+                    s.GetRequiredService<UsersStore>(),
+                    s.GetRequiredService<IUsersRepository>()));
                 services.AddTransient<EditUserViewModel>(s => new EditUserViewModel(
-                    s.GetRequiredService<UsersStore>()));
+                    s.GetRequiredService<NavigationStore>(),
+                    s.GetRequiredService<UsersStore>(),
+                    s.GetRequiredService<IUsersRepository>()));
 
                 //services.AddTransient(s => 
                 //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
