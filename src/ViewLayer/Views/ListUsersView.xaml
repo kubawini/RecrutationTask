@@ -24,6 +24,9 @@
                                      Value="True">
                             <Setter Property="Background" Value="#e0e0e0"/>
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
