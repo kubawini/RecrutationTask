@@ -11,5 +11,6 @@ namespace ModelLayer.Repositories
     {
         Task SaveAllUsers(IEnumerable<UserModel> users);
         Task UpdateUser(UserModel user);
+        int GetUsersCount();
     }
 }

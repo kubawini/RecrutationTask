@@ -25,6 +25,8 @@ namespace ViewModelLayer.ViewModels
             set { _usersStore.CurrentUser = value; }
         }
 
+        public UserModel CurrentUserCopy;
+
         public string CurrentUserName
         {
             get { return _usersStore.CurrentUser.name; }
@@ -75,9 +77,16 @@ namespace ViewModelLayer.ViewModels
         public EditUserViewModel(NavigationService<ListUsersViewModel> navigationService, UsersStore usersStore, IUsersRepository usersRepository)
         {
             _usersStore = usersStore;
-            Cancel = new NavigateCommand<ListUsersViewModel>(navigationService);
+            Cancel = new CancelUpdateCommand(navigationService, this);
             Save = new UpdateUserCommand(_usersStore.CurrentUser, usersRepository, new(navigationService));
             _propertyNameToErrorsDictionary = new Dictionary<string, List<string>>();
+            CurrentUserCopy = new UserModel()
+            {
+                name = CurrentUser.name,
+                surename = CurrentUser.surename,
+                email = CurrentUser.email,
+                phone = CurrentUser.phone
+            };
         }
 
         // Error handling

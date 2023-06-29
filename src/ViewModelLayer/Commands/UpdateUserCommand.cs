@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ViewModelLayer.ViewModels;
 
 namespace ViewModelLayer.Commands
@@ -24,7 +25,15 @@ namespace ViewModelLayer.Commands
 
         public override void Execute(object parameter)
         {
-            _usersRepository.UpdateUser(_currentUser);
+            try
+            {
+                _usersRepository.UpdateUser(_currentUser);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not save user into database", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             _navigateCommand.Execute(null);
         }
     }

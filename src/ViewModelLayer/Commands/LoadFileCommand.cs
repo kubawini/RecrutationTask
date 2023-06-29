@@ -37,6 +37,10 @@ namespace ViewModelLayer.Commands
             _errorOccured = false;
             _fileWasChosen = false;
             ChooseAndReadFile();
+            if(_errorOccured || !_fileWasChosen)
+            {
+                return;
+            }
             SaveIntoDb();
             if (!_errorOccured && _fileWasChosen)
             {
@@ -100,12 +104,15 @@ namespace ViewModelLayer.Commands
         {
             try
             {
+                int usersBefore = _usersRepository.GetUsersCount();
                 _usersRepository.SaveAllUsers(_viewModel.UsersStore.Users);
+                int usersAfter = _usersRepository.GetUsersCount();
+                if (usersBefore >= usersAfter) throw new Exception("Could not save users into database");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Could not save users into database", "Error",
-                   MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Could not save users into database - check if users you want to add already exist", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _errorOccured = true;
             }
         }

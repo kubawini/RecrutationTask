@@ -39,7 +39,7 @@ namespace ViewLayer
 
                 services.AddAutoMapper(typeof(MappingProfile));
                     services.AddSingleton<IUsersDbContextFactory>(s => new UsersDbContextFactory(connectionString));
-                    services.AddSingleton<IUsersRepository, UsersRepository>();
+                    services.AddScoped<IUsersRepository, UsersRepository>();
                     services.AddSingleton<NavigationStore>();
                     services.AddSingleton<UsersStore>();
 

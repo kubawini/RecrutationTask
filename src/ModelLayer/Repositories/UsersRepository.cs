@@ -21,15 +21,20 @@ namespace ModelLayer.Repositories
             _mapper = mapper;
         }
 
+        public int GetUsersCount()
+        {
+            using (UsersDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                return context.Users.Count();
+            }
+        }
+
         public async Task SaveAllUsers(IEnumerable<UserModel> users)
         {
             using (UsersDbContext context = _dbContextFactory.CreateDbContext())
             {
-                foreach(var user in users)
-                {
-                    await context.Users.AddAsync(_mapper.Map<UserDTO>(user));
-                }
-                await context.SaveChangesAsync();
+                await context.Users.AddRangeAsync(_mapper.Map<IEnumerable<UserDTO>>(users));
+                var a = context.SaveChanges();
             }
         }
 
