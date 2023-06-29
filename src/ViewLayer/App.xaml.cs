@@ -13,7 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-//using ViewModelLayer.Services;
+using ViewModelLayer.Services;
 using ViewModelLayer.Stores;
 using ViewModelLayer.ViewModels;
 
@@ -47,22 +47,17 @@ namespace ViewLayer
                     services.AddSingleton<NavigationStore>();
                     services.AddSingleton<UsersStore>();
 
-                    //services.AddSingleton<NavigationService<LoadUsersViewModel>>();
-                    //services.AddSingleton<NavigationService<ListUsersViewModel>>();
-                    //services.AddSingleton<NavigationService<EditUserViewModel>>();
+                    services.AddSingleton<Func<LoadUsersViewModel>>(s => () => s.GetRequiredService<LoadUsersViewModel>());
+                    services.AddSingleton<Func<EditUserViewModel>>(s => () => s.GetRequiredService<EditUserViewModel>());
+                    services.AddSingleton<Func<ListUsersViewModel>>(s => () => s.GetRequiredService<ListUsersViewModel>());
 
-                    services.AddTransient<LoadUsersViewModel>(s => new LoadUsersViewModel(
-                        s.GetRequiredService<NavigationStore>(), 
-                        s.GetRequiredService<UsersStore>(),
-                        s.GetRequiredService<IUsersRepository>()));
-                    services.AddTransient<ListUsersViewModel>(s => new ListUsersViewModel(
-                        s.GetRequiredService<NavigationStore>(),
-                        s.GetRequiredService<UsersStore>(),
-                        s.GetRequiredService<IUsersRepository>()));
-                    services.AddTransient<EditUserViewModel>(s => new EditUserViewModel(
-                        s.GetRequiredService<NavigationStore>(),
-                        s.GetRequiredService<UsersStore>(),
-                        s.GetRequiredService<IUsersRepository>()));
+                    services.AddSingleton<NavigationService<LoadUsersViewModel>>();
+                    services.AddSingleton<NavigationService<ListUsersViewModel>>();
+                    services.AddSingleton<NavigationService<EditUserViewModel>>();
+
+                    services.AddTransient<LoadUsersViewModel>();
+                    services.AddTransient<ListUsersViewModel>();
+                    services.AddTransient<EditUserViewModel>();
 
                     //services.AddTransient(s => 
                     //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
@@ -91,11 +86,11 @@ namespace ViewLayer
                 dbContext.Database.Migrate();
             }
 
-            NavigationStore navigationStore = _host.Services.GetRequiredService<NavigationStore>();
+            //NavigationStore navigationStore = _host.Services.GetRequiredService<NavigationStore>();
             //UsersStore usersStore = _host.Services.GetRequiredService<UsersStore>();
-            navigationStore.CurrentViewModel = _host.Services.GetRequiredService<LoadUsersViewModel>();
-            //NavigationService<LoadUsersViewModel> navigationService = _host.Services.GetRequiredService<NavigationService<LoadUsersViewModel>>();
-            //navigationService.Navigate();
+            //navigationStore.CurrentViewModel = _host.Services.GetRequiredService<LoadUsersViewModel>();
+            NavigationService<LoadUsersViewModel> navigationService = _host.Services.GetRequiredService<NavigationService<LoadUsersViewModel>>();
+            navigationService.Navigate();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
 

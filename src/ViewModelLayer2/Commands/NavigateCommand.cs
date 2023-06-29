@@ -9,23 +9,23 @@ using ViewModelLayer.ViewModels;
 
 namespace ViewModelLayer.Commands
 {
-    public class NavigateCommand : CommandBase
+    public class NavigateCommand<TViewModel> : CommandBase where TViewModel : ViewModelBase
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<ViewModelBase> _createViewModel;
-        // private readonly NavigationService<TViewModel> _navigationService;
+        //private readonly NavigationStore _navigationStore;
+        //private readonly Func<ViewModelBase> _createViewModel;
+        private readonly NavigationService<TViewModel> _navigationService;
 
-        public NavigateCommand(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
+        public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
-            //_navigationService = navigationService;
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _navigationService = navigationService;
+            //_navigationStore = navigationStore;
+            //_createViewModel = createViewModel;
         }
 
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
-            //_navigationService.Navigate();
+            //_navigationStore.CurrentViewModel = _createViewModel();
+            _navigationService.Navigate();
         }
     }
 }

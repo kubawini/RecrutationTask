@@ -19,13 +19,13 @@ namespace ViewModelLayer.Commands
     public class LoadFileCommand : CommandBase
     {
         private readonly LoadUsersViewModel _viewModel;
-        private readonly NavigationStore _navigationStore;
+        private readonly NavigationService<ListUsersViewModel> _navigationService;
         private readonly IUsersRepository _usersRepository;
 
-        public LoadFileCommand(LoadUsersViewModel loadUsersViewModel, NavigationStore navigationStore, IUsersRepository usersRepository)
+        public LoadFileCommand(LoadUsersViewModel loadUsersViewModel, NavigationService<ListUsersViewModel> navigationService, IUsersRepository usersRepository)
         {
             _viewModel = loadUsersViewModel;
-            _navigationStore = navigationStore;
+            _navigationService = navigationService;
             _usersRepository = usersRepository;
         }
 
@@ -35,8 +35,8 @@ namespace ViewModelLayer.Commands
             if (string.IsNullOrEmpty(_viewModel.FilePath)) return; //TODO Check what happens when not clicking ok button
             _viewModel.UsersStore.Users = ReadUsers(_viewModel.FilePath);
             _usersRepository.SaveAllUsers(_viewModel.UsersStore.Users);
-            _navigationStore.CurrentViewModel = new ListUsersViewModel(_navigationStore, _viewModel.UsersStore, _usersRepository);
-            //_navigationStore.Navigate();
+            //_navigationStore.CurrentViewModel = new ListUsersViewModel(_navigationStore, _viewModel.UsersStore, _usersRepository);
+            _navigationService.Navigate();
         }
 
         public string OpenFileDialog()

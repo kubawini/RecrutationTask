@@ -32,9 +32,9 @@ namespace ViewModelLayer.ViewModels
         public UsersStore UsersStore;
         public ICommand LoadFileCommand { get; }
 
-        public LoadUsersViewModel(NavigationStore navigationStore, UsersStore usersStore, IUsersRepository usersRepository)
+        public LoadUsersViewModel(NavigationService<ListUsersViewModel> navigationService, UsersStore usersStore, IUsersRepository usersRepository)
         {
-            LoadFileCommand = new LoadFileCommand(this, navigationStore, usersRepository);
+            LoadFileCommand = new LoadFileCommand(this, navigationService, usersRepository);
             UsersStore = usersStore;
         }
     }

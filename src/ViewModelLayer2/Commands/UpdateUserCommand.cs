@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModelLayer.ViewModels;
 
 namespace ViewModelLayer.Commands
 {
@@ -12,9 +13,9 @@ namespace ViewModelLayer.Commands
     {
         private readonly UserModel _currentUser;
         private readonly IUsersRepository _usersRepository;
-        private readonly NavigateCommand _navigateCommand;
+        private readonly NavigateCommand<ListUsersViewModel> _navigateCommand;
 
-        public UpdateUserCommand(UserModel currentUser, IUsersRepository usersRepository, NavigateCommand navigateCommand)
+        public UpdateUserCommand(UserModel currentUser, IUsersRepository usersRepository, NavigateCommand<ListUsersViewModel> navigateCommand)
         {
             _currentUser = currentUser;
             _usersRepository = usersRepository;

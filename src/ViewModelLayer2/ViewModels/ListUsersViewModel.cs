@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ViewModelLayer.Commands;
+using ViewModelLayer.Services;
 using ViewModelLayer.Stores;
 
 namespace ViewModelLayer.ViewModels
@@ -32,10 +33,10 @@ namespace ViewModelLayer.ViewModels
 
         public ICommand OpenEditUser { get; }
 
-        public ListUsersViewModel(NavigationStore navigationStore, UsersStore usersStore, IUsersRepository usersRepository) // TODO Delete repository from constructor
+        public ListUsersViewModel(NavigationService<EditUserViewModel> navigationService, UsersStore usersStore, IUsersRepository usersRepository) // TODO Delete repository from constructor
         {
             _usersStore = usersStore;
-            OpenEditUser = new NavigateCommand(navigationStore, () => new EditUserViewModel(navigationStore, usersStore, usersRepository)); // TODO What if CurrentUser is empty - simple converter
+            OpenEditUser = new NavigateCommand<EditUserViewModel>(navigationService); // TODO What if CurrentUser is empty - simple converter
         }
     }
 }
