@@ -32,7 +32,7 @@ namespace ViewModelLayer.ViewModels
         public bool IsUserSelected
         {
             get { return _isUserSelected;}
-            set { _isUserSelected = value; OnPropertyChanged("IsUserSelected");  }
+            set { _isUserSelected = value; OnPropertyChanged(nameof(IsUserSelected));  }
         }
 
         public ICommand OpenEditUser { get; }
@@ -40,7 +40,7 @@ namespace ViewModelLayer.ViewModels
         public ListUsersViewModel(NavigationService<EditUserViewModel> navigationService, UsersStore usersStore)
         {
             _usersStore = usersStore;
-            OpenEditUser = new NavigateCommand<EditUserViewModel>(navigationService); // TODO What if CurrentUser is empty - simple converter
+            OpenEditUser = new NavigateCommand<EditUserViewModel>(navigationService);
         }
     }
 }

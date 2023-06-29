@@ -23,6 +23,7 @@ namespace ViewModelLayer.Commands
         private readonly NavigationService<ListUsersViewModel> _navigationService;
         private readonly IUsersRepository _usersRepository;
         private bool _errorOccured = false;
+        private bool _fileWasChosen = false;
 
         public LoadFileCommand(LoadUsersViewModel loadUsersViewModel, NavigationService<ListUsersViewModel> navigationService, IUsersRepository usersRepository)
         {
@@ -34,9 +35,10 @@ namespace ViewModelLayer.Commands
         public override void Execute(object parameter)
         {
             _errorOccured = false;
+            _fileWasChosen = false;
             ChooseAndReadFile();
             SaveIntoDb();
-            if (!_errorOccured)
+            if (!_errorOccured && _fileWasChosen)
             {
                 _navigationService.Navigate();
             }
@@ -64,7 +66,14 @@ namespace ViewModelLayer.Commands
             try
             {
                 _viewModel.FilePath = OpenFileDialog();
-                if (string.IsNullOrEmpty(_viewModel.FilePath)) return;
+                if (string.IsNullOrEmpty(_viewModel.FilePath))
+                {
+                    return;
+                }
+                else
+                {
+                    _fileWasChosen = true;
+                }
                 _viewModel.UsersStore.Users = ReadUsers(_viewModel.FilePath);
             }
             catch (HeaderValidationException ex)
