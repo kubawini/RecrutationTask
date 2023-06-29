@@ -6,8 +6,64 @@
              xmlns:local="clr-namespace:ViewLayer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Width="80" Height="40" Content="Load"
-               Command="{Binding LoadFileCommand}"/>
+    <Grid Margin="20,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Foreground="White" FontWeight="Medium" 
+                       FontSize="30" TextWrapping="Wrap">
+                Recrutation Task
+            </TextBlock>
+            <TextBlock Foreground="#f0f0f0" FontWeight="Medium"
+                       FontSize="20" TextWrapping="Wrap"
+                       Grid.Row="1">
+                WPF application performing interaction with database and
+                reading from .csv files
+            </TextBlock>
+            <TextBlock Foreground="#e0e0e0" FontWeight="Medium"
+                       FontSize="15" TextWrapping="Wrap"
+                       Grid.Row="2">
+                Please select a .csv file you want to load
+            </TextBlock>
+        <Button HorizontalAlignment="Left" Content="Load" 
+                Foreground="#151152" Grid.Row="3" Margin="0,15"
+                Command="{Binding LoadFileCommand}" FontWeight="Medium" Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background" Value="#e0e0e0"/>
+                            </Trigger>
+                        </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+        <Image Grid.Column="1" Source="../Images/eversis.png"/>
+
     </Grid>
 </UserControl>

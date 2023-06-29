@@ -6,59 +6,52 @@
              xmlns:local="clr-namespace:ViewLayer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+
+    <Grid Margin="20,0,20,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Width="80" Height="40" HorizontalAlignment="Left" Content="Edit"
-                Command="{Binding OpenEditUser}"/>
+        <Button HorizontalAlignment="Left" Content="Edit" 
+                Foreground="#151152" Margin="0,5"
+                Command="{Binding OpenEditUser}" FontWeight="Medium" Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                     Value="True">
+                            <Setter Property="Background" Value="#e0e0e0"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
         <ListView Grid.Row="1" ItemsSource="{Binding Users}" SelectedItem="{Binding CurrentUser}" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
-
-                    <GridViewColumn Header="Id">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding id}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding name}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Surname">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding surename}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Email">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding email}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Phone">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding phone}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding id}" />
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding name}" />
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding surename}" />
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}" />
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding phone}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        
     </Grid>
 </UserControl>

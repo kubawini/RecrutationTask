@@ -6,6 +6,42 @@
              xmlns:local="clr-namespace:ViewLayer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="30,15,0,0"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="30,2"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#151152"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                                     Value="True">
+                    <Setter Property="Background" Value="#e0e0e0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -18,23 +54,26 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name"/>
+
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                     Text="{Binding CurrentUser.name}"/>
+                    Text="{Binding CurrentUser.name}"/>
+
+
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Surname"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
                      Text="{Binding CurrentUser.surename}"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Email"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Email"/>
             <TextBox Grid.Row="5" Grid.Column="0"
                      Text="{Binding CurrentUser.email}"/>
 
@@ -44,9 +83,32 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Width="80" Height="40" Content="Cancel" Command="{Binding Cancel}"/>
-            <Button Width="80" Height="40" Content="Save" Command="{Binding Save}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" Margin="0,0,30,0">
+            <Button Content="Cancel" Command="{Binding Cancel}" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Save" Command="{Binding Save}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

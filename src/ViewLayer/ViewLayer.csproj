@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\eversis.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\eversis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
   </ItemGroup>
 

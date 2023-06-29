@@ -20,6 +20,16 @@
                 <views:EditUserView/>
             </DataTemplate>
         </Grid.Resources>
+
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Offset="0.5" Color="#151152" />
+                    <GradientStop Offset="1" Color="#4528d4" />
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
