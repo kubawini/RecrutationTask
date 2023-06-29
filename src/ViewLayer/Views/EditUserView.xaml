@@ -65,21 +65,21 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name"/>
 
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    Text="{Binding CurrentUser.name}"/>
+                    Text="{Binding CurrentUserName, UpdateSourceTrigger=PropertyChanged}"/>
 
 
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Surname"/>
             <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
-                     Text="{Binding CurrentUser.surename}"/>
+                     Text="{Binding CurrentUserSurname, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Email"/>
             <TextBox Grid.Row="5" Grid.Column="0"
-                     Text="{Binding CurrentUser.email}"/>
+                     Text="{Binding CurrentUserEmail, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Row="4" Grid.Column="1" Text="Phone number"/>
             <TextBox Grid.Row="5" Grid.Column="1"
-                     Text="{Binding CurrentUser.phone}"/>
+                     Text="{Binding CurrentUserPhone, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
 
@@ -97,7 +97,8 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Save" Command="{Binding Save}">
+            <Button Content="Save" Command="{Binding Save}" 
+                    IsEnabled="{Binding HasNoErrors}" Cursor="Hand">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Width="100" Height="25"
