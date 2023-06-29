@@ -9,6 +9,6 @@ namespace ModelLayer.Repositories
 {
     public interface IUsersRepository
     {
-        Task SaveAllUsers(List<UserModel> users);
+        Task SaveAllUsers(IEnumerable<UserModel> users);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ModelLayer.Models;
+using ModelLayer.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,9 @@ namespace ViewModelLayer.ViewModels
         public UsersStore UsersStore;
         public ICommand LoadFileCommand { get; }
 
-        public LoadUsersViewModel(NavigationStore navigationStore, UsersStore usersStore)
+        public LoadUsersViewModel(NavigationStore navigationStore, UsersStore usersStore, IUsersRepository usersRepository)
         {
-            LoadFileCommand = new LoadFileCommand(this, navigationStore);
+            LoadFileCommand = new LoadFileCommand(this, navigationStore, usersRepository);
             UsersStore = usersStore;
         }
     }

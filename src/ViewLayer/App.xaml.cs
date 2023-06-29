@@ -33,7 +33,7 @@ namespace ViewLayer
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddAutoMapper(typeof(MappingProfile));
-                services.AddSingleton<UsersDbContextFactory>(new UsersDbContextFactory(_connectionString));
+                services.AddSingleton<IUsersDbContextFactory>(s => new UsersDbContextFactory(_connectionString));
                 services.AddSingleton<IUsersRepository, UsersRepository>();
                 services.AddSingleton<NavigationStore>();
                 services.AddSingleton<UsersStore>();
@@ -44,7 +44,8 @@ namespace ViewLayer
 
                 services.AddTransient<LoadUsersViewModel>(s => new LoadUsersViewModel(
                     s.GetRequiredService<NavigationStore>(), 
-                    s.GetRequiredService<UsersStore>()));
+                    s.GetRequiredService<UsersStore>(),
+                    s.GetRequiredService<IUsersRepository>()));
 
                 //services.AddTransient(s => 
                 //    new LoadUsersViewModel(s.GetRequiredService<NavigationService<ListUsersViewModel>>()));
@@ -66,7 +67,7 @@ namespace ViewLayer
             //DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(_connectionString).Options;
             //UsersDbContext usersDbContext = new UsersDbContext(options);
             //usersDbContext.Database.Migrate();
-            UsersDbContextFactory usersDbContextFactory = _host.Services.GetRequiredService<UsersDbContextFactory>();
+            IUsersDbContextFactory usersDbContextFactory = _host.Services.GetRequiredService<IUsersDbContextFactory>();
             using(UsersDbContext dbContext = usersDbContextFactory.CreateDbContext())
             {
                 dbContext.Database.Migrate();

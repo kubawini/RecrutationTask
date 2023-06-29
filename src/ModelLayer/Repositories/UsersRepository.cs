@@ -21,7 +21,7 @@ namespace ModelLayer.Repositories
             _mapper = mapper;
         }
 
-        public async Task SaveAllUsers(List<UserModel> users)
+        public async Task SaveAllUsers(IEnumerable<UserModel> users)
         {
             using (UsersDbContext context = _dbContextFactory.CreateDbContext())
             {

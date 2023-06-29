@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.Win32;
 using ModelLayer.Models;
+using ModelLayer.Repositories;
 using ViewModelLayer.Services;
 using ViewModelLayer.Stores;
 using ViewModelLayer.ViewModels;
@@ -19,11 +20,13 @@ namespace ViewModelLayer.Commands
     {
         private readonly LoadUsersViewModel _viewModel;
         private readonly NavigationStore _navigationStore;
+        private readonly IUsersRepository _usersRepository;
 
-        public LoadFileCommand(LoadUsersViewModel loadUsersViewModel, NavigationStore navigationStore)
+        public LoadFileCommand(LoadUsersViewModel loadUsersViewModel, NavigationStore navigationStore, IUsersRepository usersRepository)
         {
             _viewModel = loadUsersViewModel;
             _navigationStore = navigationStore;
+            _usersRepository = usersRepository;
         }
 
         public override void Execute(object parameter)
@@ -31,6 +34,7 @@ namespace ViewModelLayer.Commands
             _viewModel.FilePath = OpenFileDialog();
             if (string.IsNullOrEmpty(_viewModel.FilePath)) return; //TODO Check what happens when not clicking ok button
             _viewModel.UsersStore.Users = ReadUsers(_viewModel.FilePath);
+            _usersRepository.SaveAllUsers(_viewModel.UsersStore.Users);
             _navigationStore.CurrentViewModel = new ListUsersViewModel(_viewModel.UsersStore.Users);
             //_navigationStore.Navigate();
         }
